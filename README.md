@@ -1,6 +1,6 @@
 # USVI Historic Explorer
 
-USVI Historic Explorer is a simple React application that lists historic sites in the United States Virgin Islands. The project uses [Vite](https://vitejs.dev/) for development and bundling.
+USVI Historic Explorer is a simple React application that lists historic sites in the United States Virgin Islands. The project uses [Vite](https://vitejs.dev/) for development and bundling. The app now includes a historic map view and a ride sharing utility.
 
 ## Getting Started
 
