@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import HistoricSiteList from './components/HistoricSiteList';
+import HistoricMapApp from './components/HistoricMapApp';
+import RideSharingApp from './components/RideSharingApp';
 import './App.css';
 
 function Home() {
@@ -9,6 +11,8 @@ function Home() {
       <h1>USVI Historic Explorer</h1>
       <p>Discover historic sites across the islands.</p>
       <Link className="App-link" to="/sites">View Sites</Link>
+      <Link className="App-link" to="/map">Historic Map</Link>
+      <Link className="App-link" to="/ride">Ride Sharing</Link>
     </div>
   );
 }
@@ -19,6 +23,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sites" element={<HistoricSiteList />} />
+        <Route path="/map" element={<HistoricMapApp />} />
+        <Route path="/ride" element={<RideSharingApp />} />
       </Routes>
     </Router>
   );
