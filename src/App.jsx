@@ -1,28 +1,26 @@
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import HistoricSiteList from './components/HistoricSiteList';
 import './App.css';
+
+function Home() {
+  return (
+    <div className="App-header">
+      <img src="/usvi-logo.svg" className="App-logo" alt="USVI logo" />
+      <h1>USVI Historic Explorer</h1>
+      <p>Discover historic sites across the islands.</p>
+      <Link className="App-link" to="/sites">View Sites</Link>
+    </div>
+  );
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src="Octocat.png" className="App-logo" alt="logo" />
-        <p>
-          GitHub Codespaces <span className="heart">♥️</span> React
-        </p>
-        <p className="small">
-          Edit <code>src/App.jsx</code> and save to reload.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/sites" element={<HistoricSiteList />} />
+      </Routes>
+    </Router>
   );
 }
 
