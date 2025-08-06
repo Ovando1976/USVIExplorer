@@ -3,6 +3,7 @@ import HistoricSiteList from './components/HistoricSiteList';
 import HistoricMapApp from './components/HistoricMapApp';
 import RideSharingApp from './components/RideSharingApp';
 import StripePayment from './components/StripePayment';
+import ExplorePage from './components/ExplorePage';
 import './App.css';
 
 function Home() {
@@ -15,6 +16,7 @@ function Home() {
       <Link className="App-link" to="/map">Historic Map</Link>
       <Link className="App-link" to="/ride">Ride Sharing</Link>
       <Link className="App-link" to="/checkout">Checkout</Link>
+      <Link className="App-link" to="/explore">Explore</Link>
     </div>
   );
 }
@@ -28,6 +30,7 @@ function App() {
         <Route path="/map" element={<HistoricMapApp />} />
         <Route path="/ride" element={<RideSharingApp />} />
         <Route path="/checkout" element={<StripePayment />} />
+        <Route path="/explore" element={<ExplorePage />} />
       </Routes>
     </Router>
   );
