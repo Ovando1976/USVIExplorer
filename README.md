@@ -22,6 +22,16 @@ USVI Historic Explorer is a simple React application that lists historic sites i
    npm run build
    ```
 
+## Deployment
+
+To deploy the app to Firebase Hosting for the `vigilant-memory` project:
+
+```bash
+npm run deploy
+```
+
+The command builds the app and uploads the contents of the `dist` directory to Firebase.
+
 ## Environment
 
 To enable Stripe payments, set `VITE_STRIPE_PUBLISHABLE_KEY` with your Stripe publishable key.
