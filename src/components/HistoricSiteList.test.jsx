@@ -8,3 +8,12 @@ test('lists all historic sites', () => {
   expect(screen.getByText(/Estate Whim Plantation/i)).toBeDefined();
   expect(screen.getByText(/Cruz Bay Historic District/i)).toBeDefined();
 });
+
+test('renders a provided list of sites', () => {
+  const customSites = [
+    { id: 1, name: 'Bluebeard Castle', location: 'Charlotte Amalie' }
+  ];
+
+  render(<HistoricSiteList sites={customSites} />);
+  expect(screen.getByText(/Bluebeard Castle/i)).toBeDefined();
+});
