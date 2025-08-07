@@ -7,6 +7,8 @@
     "@emotion/styled": "^11.14.1",
     "@mui/material": "^7.2.0",
     "@react-google-maps/api": "^2.20.7",
+    "@stripe/react-stripe-js": "^3.9.0",
+    "@stripe/stripe-js": "^7.8.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
@@ -14,7 +16,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^7.7.0",
-    "web-vitals": "^3.1.0"
+    "web-vitals": "^3.1.0",
+    "openai": "^4.52.2"
   },
   "overrides": {
     "@svgr/webpack": "^8.0.1",
@@ -25,7 +28,8 @@
     "start": "cross-env BROWSER=none WDS_SOCKET_PORT=0 vite --port 3000",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "deploy": "npm run build && npx firebase deploy"
   },
   "eslintConfig": {
     "extends": [
