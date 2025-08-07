@@ -1,10 +1,17 @@
+
+const defaultSites = [
+
 import { useState } from 'react';
 
 const sites = [
+
   { id: 1, name: 'Fort Christian', location: 'Charlotte Amalie, St. Thomas' },
   { id: 2, name: 'Estate Whim Plantation', location: 'St. Croix' },
   { id: 3, name: 'Cruz Bay Historic District', location: 'St. John' }
 ];
+
+
+function HistoricSiteList({ sites = defaultSites }) {
 
 function HistoricSiteList() {
   const [query, setQuery] = useState('');
@@ -23,7 +30,11 @@ function HistoricSiteList() {
         onChange={(e) => setQuery(e.target.value)}
       />
       <ul>
+
+        {sites.map((site) => (
+
         {filteredSites.map(site => (
+
           <li key={site.id}>
             <strong>{site.name}</strong> - {site.location}
           </li>

@@ -18,3 +18,12 @@ test('filters sites by search query', async () => {
   expect(screen.queryByText(/Fort Christian/i)).toBeNull();
   expect(screen.getByText(/Estate Whim Plantation/i)).toBeInTheDocument();
 });
+
+test('renders a provided list of sites', () => {
+  const customSites = [
+    { id: 1, name: 'Bluebeard Castle', location: 'Charlotte Amalie' }
+  ];
+
+  render(<HistoricSiteList sites={customSites} />);
+  expect(screen.getByText(/Bluebeard Castle/i)).toBeDefined();
+});
