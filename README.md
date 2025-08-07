@@ -23,7 +23,7 @@ USVI Historic Explorer is a simple React application that lists historic sites i
    ```
 
 ## Environment
-No special environment variables are required.
+To enable Stripe payments, set `VITE_STRIPE_PUBLISHABLE_KEY` with your Stripe publishable key.
 
 ## Contact
 For questions or feedback please reach out to the project maintainers.
