@@ -25,7 +25,8 @@
     "start": "cross-env BROWSER=none WDS_SOCKET_PORT=0 vite --port 3000",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "deploy": "npm run build && npx firebase deploy"
   },
   "eslintConfig": {
     "extends": [
