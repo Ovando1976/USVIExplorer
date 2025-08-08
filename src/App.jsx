@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HistoricSiteList from './components/HistoricSiteList';
 import HistoricMapApp from './components/HistoricMapApp';
 import RideSharingApp from './components/RideSharingApp';
@@ -7,6 +7,7 @@ import StripeCheckout from './components/StripeCheckout';
 
 import StripePayment from './components/StripePayment';
 import ExplorePage from './components/ExplorePage';
+import NavigationBar from './components/NavigationBar';
 
 import './App.css';
 
@@ -16,12 +17,6 @@ function Home() {
       <img src="/usvi-logo.svg" className="App-logo" alt="USVI logo" />
       <h1>USVI Historic Explorer</h1>
       <p>Discover historic sites across the islands.</p>
-      <Link className="App-link" to="/sites">View Sites</Link>
-      <Link className="App-link" to="/map">Historic Map</Link>
-      <Link className="App-link" to="/ride">Ride Sharing</Link>
-      <Link className="App-link" to="/donate">Donate</Link>
-      <Link className="App-link" to="/checkout">Checkout</Link>
-      <Link className="App-link" to="/explore">Explore</Link>
     </div>
   );
 }
@@ -29,6 +24,7 @@ function Home() {
 function App() {
   return (
     <Router>
+      <NavigationBar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sites" element={<HistoricSiteList />} />
