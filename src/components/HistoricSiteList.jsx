@@ -1,23 +1,17 @@
-
-const defaultSites = [
-
 import { useState } from 'react';
 
-const sites = [
-
+const defaultSites = [
   { id: 1, name: 'Fort Christian', location: 'Charlotte Amalie, St. Thomas' },
   { id: 2, name: 'Estate Whim Plantation', location: 'St. Croix' },
   { id: 3, name: 'Cruz Bay Historic District', location: 'St. John' }
 ];
 
-
-function HistoricSiteList({ sites = defaultSites }) {
-
-function HistoricSiteList() {
+export default function HistoricSiteList({ sites = defaultSites }) {
   const [query, setQuery] = useState('');
-  const filteredSites = sites.filter(site =>
-    site.name.toLowerCase().includes(query.toLowerCase()) ||
-    site.location.toLowerCase().includes(query.toLowerCase())
+  const filteredSites = sites.filter(
+    (site) =>
+      site.name.toLowerCase().includes(query.toLowerCase()) ||
+      site.location.toLowerCase().includes(query.toLowerCase())
   );
 
   return (
@@ -30,11 +24,7 @@ function HistoricSiteList() {
         onChange={(e) => setQuery(e.target.value)}
       />
       <ul>
-
-        {sites.map((site) => (
-
-        {filteredSites.map(site => (
-
+        {filteredSites.map((site) => (
           <li key={site.id}>
             <strong>{site.name}</strong> - {site.location}
           </li>
@@ -43,5 +33,3 @@ function HistoricSiteList() {
     </div>
   );
 }
-
-export default HistoricSiteList;
