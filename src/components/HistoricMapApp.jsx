@@ -1,11 +1,6 @@
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import { useMemo } from 'react';
-
-export const historicSites = [
-  { name: 'Fort Christian', position: { lat: 18.3419, lng: -64.9307 } },
-  { name: 'Estate Whim Plantation', position: { lat: 17.6995, lng: -64.8513 } },
-  { name: 'Cruz Bay Historic District', position: { lat: 18.334, lng: -64.7927 } }
-];
+import { historicSites } from '../data/places';
 
 function HistoricMapApp() {
   const { isLoaded } = useJsApiLoader({
@@ -13,7 +8,10 @@ function HistoricMapApp() {
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || ''
   });
 
-  const center = useMemo(() => historicSites[0].position, []);
+  const center = useMemo(
+    () => ({ lat: historicSites[0].lat, lng: historicSites[0].lng }),
+    []
+  );
 
   return (
     <div className="App">
@@ -27,7 +25,11 @@ function HistoricMapApp() {
           zoom={10}
         >
           {historicSites.map((site) => (
-            <Marker key={site.name} position={site.position} title={site.name} />
+            <Marker
+              key={site.id}
+              position={{ lat: site.lat, lng: site.lng }}
+              title={site.name}
+            />
           ))}
         </GoogleMap>
       )}

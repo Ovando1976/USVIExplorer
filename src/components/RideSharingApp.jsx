@@ -1,13 +1,9 @@
 import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { Box, Typography, TextField, Paper } from '@mui/material';
+import { transportHubCoordsByName } from '../data/places';
 
 const RoutePreviewMap = lazy(() => import('./RoutePreviewMap'));
-
-const locationCoords = {
-  'Cyril E. King Airport': { lat: 18.3373, lng: -64.9733 },
-  'Charlotte Amalie': { lat: 18.3419, lng: -64.9307 },
-  'Red Hook': { lat: 18.3248, lng: -64.867 }
-};
+const locationCoords = transportHubCoordsByName;
 
 export default function RideSharingApp() {
   const [pickup, setPickup] = useState('Cyril E. King Airport');

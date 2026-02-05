@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { expect, test, vi } from 'vitest';
+import { historicSites } from '../data/places';
 
 let mockUseJsApiLoader;
 vi.mock('@react-google-maps/api', () => {
@@ -7,12 +8,12 @@ vi.mock('@react-google-maps/api', () => {
   return {
     GoogleMap: ({ children }) => <div data-testid="google-map">{children}</div>,
     Marker: ({ title }) => <div data-testid="marker">{title}</div>,
-    useJsApiLoader: mockUseJsApiLoader,
+    useJsApiLoader: mockUseJsApiLoader
   };
 });
 
 test('renders map with markers when loaded', async () => {
-  const { default: HistoricMapApp, historicSites } = await import('./HistoricMapApp');
+  const { default: HistoricMapApp } = await import('./HistoricMapApp');
   render(<HistoricMapApp />);
   expect(screen.getByTestId('google-map')).toBeDefined();
   expect(screen.getAllByTestId('marker')).toHaveLength(historicSites.length);

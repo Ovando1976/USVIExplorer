@@ -1,18 +1,6 @@
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import { useMemo } from 'react';
-
-const beaches = [
-  {
-    name: 'Magens Bay',
-    position: { lat: 18.3624, lng: -64.9307 },
-    description: 'Popular beach on St. Thomas.'
-  },
-  {
-    name: 'Trunk Bay',
-    position: { lat: 18.352, lng: -64.755 },
-    description: 'Scenic beach on St. John.'
-  }
-];
+import { beaches } from '../data/places';
 
 export default function BeachMapWithControls({ onSelect }) {
   const { isLoaded } = useJsApiLoader({
@@ -20,15 +8,18 @@ export default function BeachMapWithControls({ onSelect }) {
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || ''
   });
 
-  const center = useMemo(() => beaches[0].position, []);
+  const center = useMemo(
+    () => ({ lat: beaches[0].lat, lng: beaches[0].lng }),
+    []
+  );
 
   function handleMarkerClick(beach) {
     if (onSelect) {
       onSelect({
         name: beach.name,
-        type: 'beach',
-        location: `${beach.position.lat}, ${beach.position.lng}`,
-        description: beach.description
+        type: beach.type,
+        location: `${beach.lat}, ${beach.lng}`,
+        description: beach.shortDescription
       });
     }
   }
@@ -41,8 +32,8 @@ export default function BeachMapWithControls({ onSelect }) {
         <GoogleMap mapContainerStyle={{ width: '100%', height: '100%' }} center={center} zoom={10}>
           {beaches.map((beach) => (
             <Marker
-              key={beach.name}
-              position={beach.position}
+              key={beach.id}
+              position={{ lat: beach.lat, lng: beach.lng }}
               title={beach.name}
               onClick={() => handleMarkerClick(beach)}
             />

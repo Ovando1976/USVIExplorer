@@ -36,8 +36,7 @@ The command builds the app and uploads the contents of the `dist` directory to F
 
 To enable Stripe payments, set `VITE_STRIPE_PUBLISHABLE_KEY` with your Stripe publishable key.
 
-For backward compatibility, the app will also read `VITE_STRIPE_PUBLIC_KEY` if the publishable key variable is not set yet.
-
+To enable AI tour guide responses during local development, set `OPENAI_API_KEY` in your server environment before running `npm start`. The frontend now calls `/api/v1/tour-guide/chat` instead of using secrets in browser code.
 
 ## Contact
 For questions or feedback please reach out to the project maintainers.

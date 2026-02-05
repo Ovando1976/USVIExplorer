@@ -1,15 +1,15 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './NavigationBar.css';
 
 export default function NavigationBar() {
   return (
-    <nav className="nav-bar">
-      <Link className="nav-link" to="/">Home</Link>
-      <Link className="nav-link" to="/sites">Sites</Link>
-      <Link className="nav-link" to="/map">Map</Link>
-      <Link className="nav-link" to="/ride">Ride</Link>
-      <Link className="nav-link" to="/donate">Donate</Link>
-      <Link className="nav-link" to="/explore">Explore</Link>
+    <nav className="nav-bar" aria-label="Primary">
+      <NavLink className={({ isActive }) => `nav-link${isActive ? ' nav-link-active' : ''}`} to="/">Home</NavLink>
+      <NavLink className={({ isActive }) => `nav-link${isActive ? ' nav-link-active' : ''}`} to="/sites">Sites</NavLink>
+      <NavLink className={({ isActive }) => `nav-link${isActive ? ' nav-link-active' : ''}`} to="/map">Map</NavLink>
+      <NavLink className={({ isActive }) => `nav-link${isActive ? ' nav-link-active' : ''}`} to="/ride">Ride</NavLink>
+      <NavLink className={({ isActive }) => `nav-link${isActive ? ' nav-link-active' : ''}`} to="/donate">Donate</NavLink>
+      <NavLink className={({ isActive }) => `nav-link${isActive ? ' nav-link-active' : ''}`} to="/explore">Explore</NavLink>
     </nav>
   );
 }
