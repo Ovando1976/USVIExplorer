@@ -12,4 +12,5 @@ test('shows navigation links', () => {
   );
   expect(screen.getByText(/Home/i)).toBeInTheDocument();
   expect(screen.getByText(/Sites/i)).toBeInTheDocument();
+  expect(screen.queryByText(/Checkout/i)).not.toBeInTheDocument();
 });
