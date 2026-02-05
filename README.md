@@ -35,7 +35,8 @@ The command builds the app and uploads the contents of the `dist` directory to F
 ## Environment
 
 To enable Stripe payments, set `VITE_STRIPE_PUBLISHABLE_KEY` with your Stripe publishable key.
-The Stripe checkout uses a publishable key provided via `VITE_STRIPE_PUBLIC_KEY`.
+
+For backward compatibility, the app will also read `VITE_STRIPE_PUBLIC_KEY` if the publishable key variable is not set yet.
 
 
 ## Contact
