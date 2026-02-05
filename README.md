@@ -36,8 +36,11 @@ The command builds the app and uploads the contents of the `dist` directory to F
 
 To enable Stripe payments, set `VITE_STRIPE_PUBLISHABLE_KEY` with your Stripe publishable key.
 
-For backward compatibility, the app will also read `VITE_STRIPE_PUBLIC_KEY` if the publishable key variable is not set yet.
 
+
+## Planning
+
+See `IMPLEMENTATION_BACKLOG.md` for the ranked P0/P1/P2 implementation plan with concrete epics, API contracts, and schema.
 
 ## Contact
 For questions or feedback please reach out to the project maintainers.
