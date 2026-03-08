@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { expect, test } from 'vitest';
-import HistoricSiteList from './HistoricSiteList';
 import '@testing-library/jest-dom';
+import HistoricSiteList from './HistoricSiteList';
 
-test('lists all historic sites', () => {
+test('renders default historic sites', () => {
   render(<HistoricSiteList />);
   expect(screen.getByText(/Fort Christian/i)).toBeInTheDocument();
   expect(screen.getByText(/Estate Whim Plantation/i)).toBeInTheDocument();
@@ -13,17 +13,13 @@ test('lists all historic sites', () => {
 
 test('filters sites by search query', async () => {
   render(<HistoricSiteList />);
-  const input = screen.getByPlaceholderText(/search sites/i);
+  const input = screen.getByPlaceholderText(/search by name or island/i);
   await userEvent.type(input, 'Whim');
   expect(screen.queryByText(/Fort Christian/i)).toBeNull();
   expect(screen.getByText(/Estate Whim Plantation/i)).toBeInTheDocument();
 });
 
-test('renders a provided list of sites', () => {
-  const customSites = [
-    { id: 1, name: 'Bluebeard Castle', location: 'Charlotte Amalie' }
-  ];
-
-  render(<HistoricSiteList sites={customSites} />);
-  expect(screen.getByText(/Bluebeard Castle/i)).toBeDefined();
+test('shows no sites when list is empty', () => {
+  render(<HistoricSiteList sites={[]} />);
+  expect(screen.queryByRole('listitem')).toBeNull();
 });

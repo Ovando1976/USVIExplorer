@@ -7,7 +7,8 @@ vi.mock('@react-google-maps/api', () => {
   return {
     GoogleMap: ({ children }) => <div data-testid="google-map">{children}</div>,
     Marker: ({ title }) => <div data-testid="marker">{title}</div>,
-    useJsApiLoader: mockUseJsApiLoader,
+    InfoWindow: ({ children }) => <div data-testid="info-window">{children}</div>,
+    useJsApiLoader: mockUseJsApiLoader
   };
 });
 

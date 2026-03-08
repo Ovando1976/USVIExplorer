@@ -17,13 +17,13 @@ export default function ExplorePage() {
   }
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', height: '100vh' }}>
-      <div style={{ width: '100%', height: '100%' }}>
+    <main className="explore-layout">
+      <section className="explore-map-panel" aria-label="Map explorer">
         <BeachMapWithControls onSelect={handleMapSelect} />
-      </div>
-      <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+      </section>
+      <section className="explore-chat-panel" aria-label="AI tour guide">
         <TourGuidePanel context={context} />
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
