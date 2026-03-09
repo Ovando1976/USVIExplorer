@@ -16,20 +16,26 @@ export default function HistoricSiteList({ sites = defaultSites }) {
 
   return (
     <div className="App">
-      <h2>Historic Sites</h2>
-      <input
-        type="text"
-        placeholder="Search sites"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <ul>
-        {filteredSites.map((site) => (
-          <li key={site.id}>
-            <strong>{site.name}</strong> - {site.location}
-          </li>
-        ))}
-      </ul>
+      <section className="page-card">
+        <h2 className="section-title">Historic Sites</h2>
+        <label htmlFor="site-search">Find a site</label>
+        <input
+          id="site-search"
+          className="search-input"
+          type="text"
+          placeholder="Search by name or island"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <ul className="site-list">
+          {filteredSites.map((site) => (
+            <li className="site-item" key={site.id}>
+              <strong>{site.name}</strong>
+              <div>{site.location}</div>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   );
 }
