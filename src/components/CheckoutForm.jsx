@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
 const QUICK_AMOUNTS = [10, 25, 50, 100];
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
 
 function CheckoutForm() {
   const stripe = useStripe();
@@ -21,29 +22,52 @@ function CheckoutForm() {
       return;
     }
 
-    if (!stripe || !elements) {
-      return;
-    }
+    if (!stripe || !elements) return;
 
     setLoading(true);
     setStatus(null);
 
     const cardElement = elements.getElement(CardElement);
-    const { error } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: cardElement
-    });
 
-    if (error) {
-      setStatus({ type: 'error', message: error.message || 'Payment failed. Try again.' });
-    } else {
-      setStatus({
-        type: 'success',
-        message: `Thanks for your ${isMonthly ? 'monthly ' : ''}support! This demo does not charge your card.`
+    try {
+      const intentResponse = await fetch(`${API_BASE}/api/v1/payments/create-intent`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: Math.round(amountValue * 100),
+          currency: 'usd',
+          purpose: 'donation',
+          metadata: {
+            cadence: isMonthly ? 'monthly' : 'one_time',
+            source: 'usvi_web'
+          }
+        })
       });
-    }
 
-    setLoading(false);
+      const intentPayload = await intentResponse.json();
+      if (!intentResponse.ok || !intentPayload.clientSecret) {
+        throw new Error(intentPayload.error || 'Unable to initialize payment.');
+      }
+
+      const { error } = await stripe.confirmCardPayment(intentPayload.clientSecret, {
+        payment_method: {
+          card: cardElement
+        }
+      });
+
+      if (error) {
+        setStatus({ type: 'error', message: error.message || 'Payment failed. Try again.' });
+      } else {
+        setStatus({
+          type: 'success',
+          message: `Thanks for your ${isMonthly ? 'monthly ' : ''}support! Your donation was submitted successfully.`
+        });
+      }
+    } catch (error) {
+      setStatus({ type: 'error', message: error.message || 'Payment failed. Try again.' });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -111,9 +135,7 @@ function CheckoutForm() {
         </p>
       )}
 
-      <p className="donate-note">
-        Payments are processed securely with Stripe. This demo does not initiate a real charge.
-      </p>
+      <p className="donate-note">Payments are processed securely with Stripe.</p>
     </form>
   );
 }

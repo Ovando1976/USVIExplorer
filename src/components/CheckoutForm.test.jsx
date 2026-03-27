@@ -1,10 +1,10 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { beforeEach, vi } from 'vitest';
+import { beforeEach, afterEach, vi } from 'vitest';
 import CheckoutForm from './CheckoutForm';
 
 const stripeMock = {
-  createPaymentMethod: vi.fn(async () => ({ error: null }))
+  confirmCardPayment: vi.fn(async () => ({ error: null }))
 };
 
 const elementsMock = {
@@ -15,8 +15,16 @@ let stripeAvailable = false;
 
 beforeEach(() => {
   stripeAvailable = false;
-  stripeMock.createPaymentMethod.mockClear();
+  stripeMock.confirmCardPayment.mockClear();
   elementsMock.getElement.mockClear();
+  global.fetch = vi.fn(async () => ({
+    ok: true,
+    json: async () => ({ clientSecret: 'pi_123_secret_abc' })
+  }));
+});
+
+afterEach(() => {
+  vi.restoreAllMocks();
 });
 
 vi.mock('@stripe/react-stripe-js', () => {
@@ -53,5 +61,20 @@ test('shows validation message when amount is below minimum', async () => {
   fireEvent.click(screen.getByRole('button', { name: /donate \$1/i }));
 
   expect(await screen.findByText(/at least \$5/i)).toBeInTheDocument();
-  expect(stripeMock.createPaymentMethod).not.toHaveBeenCalled();
+  expect(stripeMock.confirmCardPayment).not.toHaveBeenCalled();
+});
+
+test('creates payment intent and confirms payment on submit', async () => {
+  stripeAvailable = true;
+  render(<CheckoutForm />);
+
+  fireEvent.click(screen.getByRole('button', { name: /donate \$25/i }));
+
+  await waitFor(() => {
+    expect(global.fetch).toHaveBeenCalledWith('/api/v1/payments/create-intent', expect.objectContaining({ method: 'POST' }));
+  });
+  await waitFor(() => {
+    expect(stripeMock.confirmCardPayment).toHaveBeenCalledWith('pi_123_secret_abc', expect.any(Object));
+  });
+  expect(await screen.findByText(/submitted successfully/i)).toBeInTheDocument();
 });
